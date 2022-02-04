@@ -1,6 +1,6 @@
 while True:
     try:
-        var = int(input("Digite un numero entre 0 y 10: "))
+        var = int(input("Digite un numero enetero entre 0 y 10: "))
 
         if var < 0:
             assert False
@@ -8,7 +8,7 @@ while True:
             raise Exception
         
     except ValueError:
-        print("\nLa entrada no es un numero :(")
+        print("\nLa entrada no es un numero entero :(")
     except AssertionError:
         print("\nNumero menor a 0")
     except Exception:
