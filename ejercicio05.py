@@ -1,6 +1,6 @@
 while True:
     try:
-        var = int(input("Digite un numero enetero entre 0 y 10: "))
+        var = int(input("Digite un numero entero entre 0 y 10: "))
 
         if var < 0:
             assert False
