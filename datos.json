@@ -1,12 +1,17 @@
 {
     "Diego": {
-        "APELLIDOS": "Garcia Gonzalez",
-        "TELEFONO": 123456789,
-        "EDAD": 21
+        "APELLIDOS": "Gonzalez Garcia",
+        "TELEFONO": 987654321,
+        "EDAD": 22
     },
     "Diana": {
         "APELLIDOS": "Castillo Rebolledo",
         "TELEFONO": 987654321,
         "EDAD": 21
+    },
+    "Hector": {
+        "APELLIDOS": "Sanchez Gutierrez",
+        "TELEFONO": 135798642,
+        "EDAD": 23
     }
 }
