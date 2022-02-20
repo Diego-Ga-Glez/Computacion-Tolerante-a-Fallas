@@ -48,3 +48,4 @@ while num != 4:
 
     elif num == 3:
         os.remove("datos.json")
+        dic.clear()
