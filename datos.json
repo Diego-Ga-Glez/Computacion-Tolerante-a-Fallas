@@ -1,8 +1,8 @@
 {
     "Diego": {
-        "APELLIDOS": "Gonzalez Garcia",
-        "TELEFONO": 987654321,
-        "EDAD": 22
+        "APELLIDOS": "Garcia",
+        "TELEFONO": 2134,
+        "EDAD": 21
     },
     "Diana": {
         "APELLIDOS": "Castillo Rebolledo",
@@ -13,5 +13,10 @@
         "APELLIDOS": "Sanchez Gutierrez",
         "TELEFONO": 135798642,
         "EDAD": 23
+    },
+    "Paola": {
+        "APELLIDOS": "Lopez",
+        "TELEFONO": 1234,
+        "EDAD": 32
     }
 }
