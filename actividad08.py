@@ -2,6 +2,8 @@ import json
 import os
 import threading
 
+print("Ejemplo")
+
 detener_thread = True
 guardar = False
 aux = []
