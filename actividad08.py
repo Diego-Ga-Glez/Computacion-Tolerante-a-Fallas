@@ -1,8 +1,7 @@
 import json
 import os
 import threading
-
-print("Ejemplo")
+import pickle
 
 detener_thread = True
 guardar = False
@@ -13,7 +12,11 @@ def verificar():
     global guardar
     while detener_thread:
         if guardar:
+            with open("respaldo.pickle", "wb") as archivo:
+                pickle.dump(aux, archivo)
+
             guardar = False
+            archivo.close()
 
 def modificar(temp):
     global guardar, aux
@@ -38,35 +41,54 @@ while num != 4:
     num = int(input("Ingrese una opcion: "))
     print()
 
-    if num == 1:        
-    
-        hilo = threading.Thread(target= verificar, args=() )
+    if num == 1:          
+        aux.clear()
+        
+        detener_thread = True
+        hilo = threading.Thread(target= verificar)
         hilo.start()
 
-        if os.path.exists("respaldo.txt"):
-            pass
+        if os.path.exists("respaldo.pickle"):
+            with open("respaldo.pickle", "rb") as archivo:
+                aux = pickle.load(archivo)
+
+            temp = len(aux)
+
+            for i in range(temp):
+                print("Ingrese: " + str(aux[i]))
+            
+            for i in range(4-temp):
+                var = input("Ingrese  : ")
+                aux.append(var)
+ 
         else:
-            nombre = input("Ingrese el nombre: ")
-            modificar(nombre)
-            apellidos = input("Ingrese los apellidos: ")
-            modificar(apellidos)
-            tel = int(input("Ingrese numero de telefono: "))
-            modificar(tel)
-            edad = int(input("Ingrese la edad: "))
-            modificar(edad)
+            temp = input("Ingrese el nombre: ")
+            modificar(temp)
+
+            temp = input("Ingrese los apellidos: ")
+            modificar(temp)
+
+            temp= input("Ingrese numero de telefono: ")
+            modificar(temp)
+
+            temp = input("Ingrese la edad: ")
+            modificar(temp)
+
+
+        os.remove("respaldo.pickle")
 
         detener_thread = False
         hilo.join()
 
-        dic[nombre] = {
-            "APELLIDOS": apellidos,
-            "TELEFONO": tel,
-            "EDAD": edad
-        }
+        dic[aux[0]] = {
+             "APELLIDOS": aux[1],
+             "TELEFONO": aux[2],
+             "EDAD": aux[3]
+         }
 
-        aux = open('datos.json', 'w')
-        json.dump(dic, aux, indent=4)
-        aux.close()
+        archivo_js = open('datos.json', 'w')
+        json.dump(dic, archivo_js, indent=4)
+        archivo_js.close()
 
     elif num == 2:
         for llave, valor in dic.items():
