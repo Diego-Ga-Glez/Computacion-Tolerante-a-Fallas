@@ -2,11 +2,13 @@ import json
 import os
 import threading
 import pickle
+import psutil
 
 detener_thread = True
 guardar = False
 aux = []
 dic = {}
+campos = ["nombre", "apellidos", "telefono", "edad"]
 
 def verificar():  
     global guardar
@@ -23,20 +25,20 @@ def modificar(temp):
     aux.append(temp)
     guardar = True
 
-try:
+
+if os.path.exists('datos.json'):
     archivo = open('datos.json')
     dic = json.loads(archivo.read())
     archivo.close()
-except:
-    pass
 
 num = 0
 
-while num != 4:
+while num != 5:
     print ("\n1.- Agregar una contacto") 
     print ("2.- Mostrar contactos")
     print ("3.- Borrar agenda")
-    print ("4.- Salir\n")
+    print ("4.- Desactivar prolocker")
+    print ("5.- Salir\n")
     
     num = int(input("Ingrese una opcion: "))
     print()
@@ -55,23 +57,26 @@ while num != 4:
             temp = len(aux)
 
             for i in range(temp):
-                print("Ingrese: " + str(aux[i]))
+                print("Ingrese "+ campos[i] + ": " + str(aux[i]))
             
+            cont = 4-temp
+
             for i in range(4-temp):
-                var = input("Ingrese  : ")
+                var = input("Ingrese " + campos[4-(cont)] + ": ")
+                cont -= 1
                 aux.append(var)
  
         else:
-            temp = input("Ingrese el nombre: ")
+            temp = input("Ingrese nombre: ")
             modificar(temp)
 
-            temp = input("Ingrese los apellidos: ")
+            temp = input("Ingrese apellidos: ")
             modificar(temp)
 
-            temp= input("Ingrese numero de telefono: ")
+            temp= input("Ingrese telefono: ")
             modificar(temp)
 
-            temp = input("Ingrese la edad: ")
+            temp = input("Ingrese edad: ")
             modificar(temp)
 
 
@@ -83,8 +88,7 @@ while num != 4:
         dic[aux[0]] = {
              "APELLIDOS": aux[1],
              "TELEFONO": aux[2],
-             "EDAD": aux[3]
-         }
+             "EDAD": aux[3] }
 
         archivo_js = open('datos.json', 'w')
         json.dump(dic, archivo_js, indent=4)
@@ -100,5 +104,15 @@ while num != 4:
             print()
 
     elif num == 3:
-        os.remove("datos.json")
+        if os.path.exists("datos.json"):
+            os.remove("datos.json")
+
+        if os.path.exists("respaldo.pickle"):
+            os.remove("respaldo.pickle")
+
         dic.clear()
+
+    elif num == 4:
+        for proc in psutil.process_iter():
+            if proc.name().lower() == "python.exe":
+                proc.kill()
