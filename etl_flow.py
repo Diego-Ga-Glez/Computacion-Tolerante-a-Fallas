@@ -1,8 +1,9 @@
 from prefect import task, Flow
 import json
 import requests
+import datetime
 
-@task
+@task(max_retries=10, retry_delay=datetime.timedelta(seconds=10))
 def extract(url):
     res = requests.get(url)
     return json.loads(res.content)
