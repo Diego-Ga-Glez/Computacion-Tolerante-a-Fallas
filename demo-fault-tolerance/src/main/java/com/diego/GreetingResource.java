@@ -21,7 +21,7 @@ import org.json.JSONObject;
 @Path("/youtube")
 public class GreetingResource {
 
-    private String KEY = "AIzaSyB-l9Dhu0twbJcpT5XKbCku9VTpaf044Ck";
+    private String KEY = "";
 
     @GET
     @Timeout(value = 50000L)
